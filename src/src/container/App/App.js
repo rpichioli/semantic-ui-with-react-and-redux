@@ -23,7 +23,7 @@ class App extends React.Component {
               <Icon name="home" />Home
             </Menu.Item>
             <Menu.Item name='going-deeper-in-crud' active={activeItem === 'going-deeper-in-crud'} onClick={this.handleItemClick}>
-              <Icon name="university" />Going deeper in CRUD
+              <Icon name="sitemap" />Going deeper in CRUD
             </Menu.Item>
             <Menu.Item name='advanced-components-and-features' active={activeItem === 'advanced-components-and-features'} onClick={this.handleItemClick}>
               <Icon name="stack overflow" />Advanced components and features
