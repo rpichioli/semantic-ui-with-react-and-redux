@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Message } from 'semantic-ui-react';
 
 class Home extends React.Component {
@@ -28,7 +27,7 @@ class Home extends React.Component {
 
 				<Message info>
 			    <Message.Header>Do you like the project?</Message.Header>
-			    <p>Help me starring the <a href="https://github.com/rpichioli/semantic-ui-with-react-and-redux" target="_blank">repository</a> or fork to pull request me with your improvements, I'll be glad. <a href="https://github.com/rpichioli/" target="_blank">Follow me in github</a> :)</p>
+			    <p>Help me starring the <a href="https://github.com/rpichioli/semantic-ui-with-react-and-redux" rel="noopener noreferrer" target="_blank">repository</a> or fork to pull request me with your improvements, I'll be glad. <a href="https://github.com/rpichioli/" rel="noopener noreferrer" target="_blank">Follow me in github</a> :)</p>
 			  </Message>
 			</React.Fragment>
 		)

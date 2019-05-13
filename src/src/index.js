@@ -25,7 +25,7 @@ import * as serviceWorker from './serviceWorker';
 
 // Browser history
 const history = createBrowserHistory();
-
+// Get state present in localStorage to set into store
 const persistedState = loadState();
 // Redux store -> Combined reducers and middleware for real-time monitoring
 const store = createStore(
