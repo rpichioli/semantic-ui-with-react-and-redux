@@ -1,15 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 // Routing
-import { Router, BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 // Semantic CSS
 import 'semantic-ui-css/semantic.min.css';
+// Routes
+import Routes from './setup/Routes';
 // Components
 import App from './container/App/App';
-import Home from './components/Home/Home';
-import About from './components/About/About';
-import NotFound from './components/NotFound/NotFound';
 // Internal
 import * as serviceWorker from './serviceWorker';
 
@@ -19,15 +18,7 @@ const history = createBrowserHistory();
 ReactDOM.render(
 	<Router history={history}>
 		<App>
-			<Switch>
-				<Route exact path="/" component={Home} />
-				<Route exact path="/about" component={About} />
-				{/*<Route exact path="/going-deeper-in-crud" component={About} />
-				<Route exact path="/advanced-components-and-features" component={About} />
-				<Route exact path="/reference-guide" component={About} />
-				<Route exact path="/release-notes" component={About} />*/}
-				<Route component={NotFound} />
-			</Switch>
+			<Routes />
 		</App>
 	</Router>,
 	document.getElementById('root')
