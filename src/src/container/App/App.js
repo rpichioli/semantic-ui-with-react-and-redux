@@ -10,7 +10,6 @@ class App extends React.Component {
 
   handleItemClick = (e, { name }) => {
     this.setState({ activeItem: name });
-    console.log(name, this.props)
     this.props.history.push(`/${name}`);
   }
 
@@ -37,8 +36,8 @@ class App extends React.Component {
               <Dropdown item text='Docs'>
                 <Dropdown.Menu>
                   <Dropdown.Item name="about" onClick={this.handleItemClick}><Icon name="info circle" /> About</Dropdown.Item>
-                  <Dropdown.Item><Icon name="graduation cap" /> Reference guide</Dropdown.Item>
-                  <Dropdown.Item><Icon name="map signs" /> Release notes</Dropdown.Item>
+                  <Dropdown.Item name="reference-guide" onClick={this.handleItemClick}><Icon name="graduation cap" /> Reference guide</Dropdown.Item>
+                  <Dropdown.Item name="release-notes" onClick={this.handleItemClick}><Icon name="map signs" /> Release notes</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
 

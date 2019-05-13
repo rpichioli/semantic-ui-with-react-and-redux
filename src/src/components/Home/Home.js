@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 class Home extends React.Component {
 	render () {
 		return (
-			<div>
+			<React.Fragment>
 				<h1>Welcome!</h1>
 				<p>You are in a React + Redux application using Semantic UI and it's React components.</p>
 				<p>The ideia is to build a full-working app demonstrating the usage of these technologies togheter in a real-life based application. The app has no focus on server-side so we will handle Redux store directly with actions and reducers without API request.</p>
@@ -16,7 +16,7 @@ class Home extends React.Component {
 					<li><a href="https://semantic-ui.com//" target="_blank">Semantic UI</a></li>
 					<li><a href="https://react.semantic-ui.com/" target="_blank">Semantic UI - React Components</a></li>
 				</ul>
-			</div>
+			</React.Fragment>
 		)
 	}
 }
