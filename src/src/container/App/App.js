@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, withRouter } from 'react-router-dom';
 import { Segment, Menu, Dropdown, Icon, Button, Container } from 'semantic-ui-react';
 
 import logo from './logo.svg';
@@ -8,7 +8,11 @@ import './App.css';
 class App extends React.Component {
   state = {}
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+  handleItemClick = (e, { name }) => {
+    this.setState({ activeItem: name });
+    console.log(name, this.props)
+    this.props.history.push(`/${name}`);
+  }
 
   render() {
     const { activeItem } = this.state
@@ -17,10 +21,10 @@ class App extends React.Component {
         {/*<Segment inverted>*/}
           <Menu size='large' >{/* pointing secondary */}
             <Menu.Item header>
-              <img src={logo} /> Semantic UI - React & Redux
+              <img src={logo} />
             </Menu.Item>{/* semantic-ui-with-react-and-redux */}
-            <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick}>
-              <Icon name="home" />Home
+            <Menu.Item name='' active={activeItem === ''} onClick={this.handleItemClick}>
+              <Icon name="home" /> Initial page
             </Menu.Item>
             <Menu.Item name='going-deeper-in-crud' active={activeItem === 'going-deeper-in-crud'} onClick={this.handleItemClick}>
               <Icon name="sitemap" />Going deeper in CRUD
@@ -32,7 +36,7 @@ class App extends React.Component {
             <Menu.Menu position='right'>
               <Dropdown item text='Docs'>
                 <Dropdown.Menu>
-                  <Dropdown.Item><Icon name="info circle" /> About</Dropdown.Item>
+                  <Dropdown.Item name="about" onClick={this.handleItemClick}><Icon name="info circle" /> About</Dropdown.Item>
                   <Dropdown.Item><Icon name="graduation cap" /> Reference guide</Dropdown.Item>
                   <Dropdown.Item><Icon name="map signs" /> Release notes</Dropdown.Item>
                 </Dropdown.Menu>
@@ -55,4 +59,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withRouter(App);

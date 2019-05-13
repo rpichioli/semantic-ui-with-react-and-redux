@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 // Routing
-import { Router, Route, Switch } from 'react-router-dom';
+import { Router, BrowserRouter, Route, Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 // Semantic CSS
 import 'semantic-ui-css/semantic.min.css';
@@ -18,11 +18,11 @@ const history = createBrowserHistory();
 ReactDOM.render(
 	<Router history={history}>
 		<App>
-			<Switch>
-				<Route exact path="/" component={Home} />
-				<Route exact path="/about" component={About} />
-				{/*<Route component={NotFound} />*/}
-			</Switch>
+				<Switch>
+					<Route exact path="/" component={Home} />
+					<Route exact path="/about" component={About} />
+					{/*<Route component={NotFound} />*/}
+				</Switch>
 		</App>
 	</Router>,
 	document.getElementById('root')
