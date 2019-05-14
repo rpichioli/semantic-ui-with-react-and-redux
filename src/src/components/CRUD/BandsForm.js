@@ -1,5 +1,5 @@
 import React from 'react';
-import {Step, Icon, Divider, Form, Header, Message, Segment} from "semantic-ui-react";
+import {Step, Icon, Divider, Form, Header, Message, Segment, Button, Rating, Radio} from "semantic-ui-react";
 import {connect} from 'react-redux';
 import {addBand, updateBand} from '../../actions/bands';
 
@@ -14,23 +14,43 @@ class BandsForm extends React.Component {
     loading: false
   }
 
+  /**
+   * Format Datestamp to date input, no value results in today escape
+   * @param  {string} date Datestamp to format
+   * @return {string}      Formatted date
+   */
+  formatDate = (date) => {
+    if (date) {
+      let arrayDate = new Date(date).toLocaleDateString('pt-br').split('/');
+      return `${arrayDate[2]}-${arrayDate[1]}-${arrayDate[0]}`;
+    } else {
+      let arrayDate = new Date().toLocaleDateString('pt-br').split('/');
+      return `${arrayDate[2]}-${arrayDate[1]}-${arrayDate[0]}`;
+    }
+  }
+
+  /**
+   * Manipulate state values based in component update
+   * @param  {object} e     Event
+   * @param  {object} value [description]
+   * @return {void}
+   */
   handleChange = (e, { value }) => this.setState({ value })
 
+  /**
+   * Handle form submission
+   * @param  {object} e Event
+   * @return {void}
+   */
   handleSubmit = (e) => {
     e.preventDefault();
   }
 
 	render () {
-    const options = [
-      { key: 'm', text: 'Male', value: 'male' },
-      { key: 'f', text: 'Female', value: 'female' },
-      { key: 'o', text: 'Other', value: 'other' },
-    ]
-
 		return (
 			<React.Fragment>
         {/* Steps */}
-        <Step.Group size='mini'>
+        <Step.Group size='mini' widths={4}>
           <Step>
             <Icon name='lightbulb' />
             <Step.Content>
@@ -61,16 +81,45 @@ class BandsForm extends React.Component {
           </Step>
         </Step.Group>
 
-        {/* Grid */}
+        {/* Form */}
         <Form onSubmit={this.handleSubmit}>
           <Form.Group widths='equal'>
-            <Form.Input fluid label='First name' placeholder='First name' />
-            <Form.Input fluid label='Last name' placeholder='Last name' />
-            <Form.Select fluid label='Gender' options={options} placeholder='Gender' />
+            <Form.Input fluid label='Title' placeholder='Band title' value={this.state.title} />
+            <Form.Input fluid label='Nationality' placeholder='Country where the band was born' value={this.state.nationality} />
           </Form.Group>
-          <Form.TextArea label='About' placeholder='Tell us more about you...' />
+
+          <Form.TextArea label='Short description' placeholder='Tell us about the band' name='description' value={this.state.description} />
+
+          <div className="fields">
+            <div className="three wide field">
+              <label>Rating</label>
+              <div className="ui fluid input">
+                <Rating maxRating={5} defaultRating={this.state.rate} icon='star' size='huge' />
+              </div>
+            </div>
+
+            <div className="three wide field">
+              <label>Enabled</label>
+              <div className="ui fluid input">
+                <Radio toggle name="status" value={this.state.status} onChange={this.handleChange} />
+              </div>
+            </div>
+
+            <Form.Input
+              fluid disabled type='date' label='Created in' name='creationDate'
+              value={this.formatDate(this.state.creationDate)} onChange={this.handleChange} width={4}
+            />
+          </div>
+
           <Form.Checkbox label='I agree to the Terms and Conditions' />
-          <Form.Button>Submit</Form.Button>
+
+          <Divider />
+
+          <Button.Group>
+            <Button onClick={() => this.props.history.push('/going-deeper-in-crud')}>Cancel and back</Button>
+            <Button.Or text='or' />
+            <Button positive>Submit</Button>
+          </Button.Group>
         </Form>
 			</React.Fragment>
 		)

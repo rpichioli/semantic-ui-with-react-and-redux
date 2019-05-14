@@ -1,15 +1,13 @@
 
 import React from 'react';
-import {
-  Divider, Header, Message, Icon, Step, Menu, Table, Label, Checkbox
-} from "semantic-ui-react";
+import {Divider, Header, Message, Icon, Step, Menu, Table, Label, Checkbox, Button} from "semantic-ui-react";
 
 class BandsList extends React.Component {
 	render () {
 		return (
 			<React.Fragment>
 				{/* Steps */}
-				<Step.Group stackable='tablet' size='mini'>
+				<Step.Group stackable='tablet' size='mini' widths={3}>
 			    <Step>
 			      <Icon name='lightbulb' />
 			      <Step.Content>
@@ -32,6 +30,9 @@ class BandsList extends React.Component {
 			      </Step.Content>
 			    </Step>
 			  </Step.Group>
+
+        <br />
+      <Button icon labelPosition='left' onClick={() => this.props.history.push('/going-deeper-in-crud/add')}><Icon name='add' /> Add</Button>
 
 				{/* Grid */}
 				<Table celled>
