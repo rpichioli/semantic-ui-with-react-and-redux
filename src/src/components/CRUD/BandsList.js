@@ -1,9 +1,17 @@
 
 import React from 'react';
-import {Divider, Header, Message, Icon, Step, Menu, Table, Label, Checkbox, Button} from "semantic-ui-react";
+import {connect} from 'react-redux';
+import {Divider, Header, Message, Icon, Step, Menu, Table, Label, Checkbox, Button, Radio, Rating} from "semantic-ui-react";
+import {fetchBands} from '../../actions/bands';
 
 class BandsList extends React.Component {
+
+  componentDidMount = () => {
+    this.props.bands.length === 0 && this.props.fetchBands();
+  }
+
 	render () {
+    const bands = this.props.bands;
 		return (
 			<React.Fragment>
 				{/* Steps */}
@@ -36,35 +44,30 @@ class BandsList extends React.Component {
         <Button icon labelPosition='left' onClick={() => this.props.history.push('/going-deeper-in-crud/add')}><Icon name='add' /> Add</Button>
 
 				{/* Grid */}
-				<Table celled>
+				<Table celled striped>
 			    <Table.Header>
 			      <Table.Row>
-							<Table.HeaderCell />
-			        <Table.HeaderCell>Header</Table.HeaderCell>
-			        <Table.HeaderCell>Header</Table.HeaderCell>
-			        <Table.HeaderCell>Header</Table.HeaderCell>
+							<Table.HeaderCell>Enabled</Table.HeaderCell>
+              <Table.HeaderCell>Title</Table.HeaderCell>
+              <Table.HeaderCell>Nationality</Table.HeaderCell>
+              <Table.HeaderCell>Rating</Table.HeaderCell>
+              <Table.HeaderCell>Created in</Table.HeaderCell>
 			      </Table.Row>
 			    </Table.Header>
 
 			    <Table.Body>
-			      <Table.Row>
-							<Table.Cell collapsing><Checkbox slider /></Table.Cell>
-			        <Table.Cell><Label ribbon>First</Label></Table.Cell>
-			        <Table.Cell>Cell</Table.Cell>
-			        <Table.Cell>Cell</Table.Cell>
-			      </Table.Row>
-			      <Table.Row>
-							<Table.Cell collapsing><Checkbox slider /></Table.Cell>
-			        <Table.Cell>First</Table.Cell>
-			        <Table.Cell>Cell</Table.Cell>
-			        <Table.Cell>Cell</Table.Cell>
-			      </Table.Row>
-			      <Table.Row>
-							<Table.Cell collapsing><Checkbox slider /></Table.Cell>
-			        <Table.Cell>First</Table.Cell>
-			        <Table.Cell>Cell</Table.Cell>
-			        <Table.Cell>Cell</Table.Cell>
-			      </Table.Row>
+            {bands.length > 0 &&
+              bands.map((item, i) => {
+                console.log(item.status, typeof item.status)
+    			      return (<Table.Row key={i}>
+    							<Table.Cell collapsing><Radio toggle name={'status_'+i} checked={item.status} /></Table.Cell>
+                  <Table.Cell><a href={`/going-deeper-in-crud/edit/${item._id}`}>{item.title}</a></Table.Cell>{/*<Label ribbon>{item.status}</Label>*/}
+                  <Table.Cell collapsing>{item.nationality}</Table.Cell>
+                  <Table.Cell collapsing><Rating maxRating={5} defaultRating={item.rate} icon='star' size='small' /></Table.Cell>
+                  <Table.Cell collapsing>{new Date(item.creationDate).toLocaleDateString('pt-br')}</Table.Cell>
+    			      </Table.Row>)
+              })
+            }
 			    </Table.Body>
 
 			    <Table.Footer>
@@ -91,4 +94,5 @@ class BandsList extends React.Component {
 	}
 }
 
-export default BandsList;
+const mapStateToProps = (state, props) => {return {bands: state.bands}};
+export default connect(mapStateToProps, {fetchBands})(BandsList);

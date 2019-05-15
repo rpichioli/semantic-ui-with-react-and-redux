@@ -1,17 +1,31 @@
 import React from 'react';
-import {Step, Icon, Divider, Form, Header, Message, Segment, Button, Rating, Radio} from "semantic-ui-react";
+import {Step, Icon, Divider, Form, Header, Message, Segment, Button, Rating, Radio, Label} from "semantic-ui-react";
 import {connect} from 'react-redux';
+import validator from 'validator';
 import {addBand, updateBand} from '../../actions/bands';
 
 class BandsForm extends React.Component {
   state = {
+    _id: this.props.band._id || 0,
     title: this.props.band.title || '',
     nationality: this.props.band.nationality || '',
     rate: this.props.band.rate || 0,
-    status: this.props.band.status || false,
+    status: this.props.band.status || true,
     description: this.props.band.description || '',
     creationDate: this.props.band.creationDate || new Date(),
+    terms: false,
+    errors: {},
     loading: false
+  }
+
+  validate = () => {
+    let errors = {};
+    if (validator.isEmpty(this.state.title)) Object.assign(errors, {title: 'Title field is required'});
+    if (validator.isEmpty(this.state.nationality)) Object.assign(errors, {nationality: 'Nationality field is required'});
+    if (validator.isEmpty(this.state.description)) Object.assign(errors, {description: 'Description field is required'});
+    if (!(this.state.terms)) Object.assign(errors, {terms: 'Terms must be accepted'});
+    this.setState({errors})
+    return Object.keys(errors).length === 0;
   }
 
   /**
@@ -29,13 +43,27 @@ class BandsForm extends React.Component {
     }
   }
 
+  handleRate = (e, { rating }) => this.setState({ rate: rating });
+
+  /**
+   * Toggle status flag providing value to state
+   * @return {void}
+   */
+  handleStatus = () => this.setState(prevState => ({ status: !prevState.status }))
+
+  /**
+   * Toggle terms flag providing value to state
+   * @return {void}
+   */
+  handleTerms = () => this.setState(prevState => ({ terms: !prevState.terms }))
+
   /**
    * Manipulate state values based in component update
    * @param  {object} e     Event
    * @param  {object} value [description]
    * @return {void}
    */
-  handleChange = (e, { value }) => this.setState({ value })
+  handleChange = (e, { value }) => this.setState({ [e.target.name] : value })
 
   /**
    * Handle form submission
@@ -43,10 +71,19 @@ class BandsForm extends React.Component {
    * @return {void}
    */
   handleSubmit = (e) => {
-    e.preventDefault();
+    if (!this.validate()) return;
+    let {_id, title, nationality, rate, status, description, creationDate} = this.state;
+    if (this.state._id === 0) {
+      let maxID = Math.max.apply(Math, this.props.bands.map(function(item) { return item._id; }))
+      this.props.addBand({_id: maxID + 1, title, nationality, rate, status, description, creationDate});
+    } else {
+      this.props.updateBand({_id, title, nationality, rate, status, description, creationDate});
+    }
+    this.props.history.push('/going-deeper-in-crud');
   }
 
 	render () {
+    const hasErrors = Object.keys(this.state.errors).length > 0;
 		return (
 			<React.Fragment>
         {/* Steps */}
@@ -85,42 +122,59 @@ class BandsForm extends React.Component {
         {/* Navigation */}
         <Button icon labelPosition='left' onClick={() => this.props.history.push('/going-deeper-in-crud')}><Icon name='angle left' /> Back</Button>
 
+        <Header as='h2' dividing>Try to use the form below
+          <Label as='a' color='red'>redux store connection</Label>
+          <Label as='a' color='orange'>validation</Label>
+          <Label as='a' color='yellow'>events</Label>
+          <Label as='a' color='olive'>life-cycle</Label>
+          <Label as='a' color='green'>redux actions</Label>
+          <Label as='a' color='teal'>routing</Label>
+        </Header>
+
         {/* Form */}
-        <Form onSubmit={this.handleSubmit}>
+        <Form onSubmit={this.handleSubmit} error={hasErrors}>
+
+          <Message
+            error
+            header='Cannot submit form'
+            list={Object.values(this.state.errors)}
+          />
+
           <Form.Group widths='equal'>
-            <Form.Input fluid label='Title' placeholder='Band title' value={this.state.title} />
-            <Form.Input fluid label='Nationality' placeholder='Country where the band was born' value={this.state.nationality} />
+            <Form.Input fluid label='Title' placeholder='Band title' name="title" value={this.state.title} error={this.state.errors.title} onChange={this.handleChange} />
+            <Form.Input fluid label='Nationality' placeholder='Country where the band was born' name="nationality" value={this.state.nationality} error={this.state.errors.nationality} onChange={this.handleChange} />
           </Form.Group>
 
-          <Form.TextArea label='Short description' placeholder='Tell us about the band' name='description' value={this.state.description} />
+          <Form.TextArea label='Short description' placeholder='Tell us about the band' name='description' value={this.state.description} error={this.state.errors.description} onChange={this.handleChange} />
 
           <div className="fields">
             <div className="three wide field">
               <label>Rating</label>
               <div className="ui fluid input">
-                <Rating maxRating={5} defaultRating={this.state.rate} icon='star' size='huge' />
+                <Rating maxRating={5} defaultRating={this.state.rate} icon='star' size='huge' name="" onRate={this.handleRate} />
               </div>
             </div>
 
             <div className="three wide field">
               <label>Enabled</label>
               <div className="ui fluid input">
-                <Radio toggle name="status" value={this.state.status} onChange={this.handleChange} />
+                <Radio toggle name="status" onChange={this.handleStatus} checked={this.state.status} />
               </div>
             </div>
 
             <Form.Input
-              fluid disabled type='date' label='Created in' name='creationDate'
+              fluid disabled
+              type='date' label='Created in' name='creationDate'
               value={this.formatDate(this.state.creationDate)} onChange={this.handleChange} width={4}
             />
           </div>
 
-          <Form.Checkbox label='I agree to the Terms and Conditions' />
+          <Form.Checkbox name='terms' label='I agree to the Terms and Conditions' onChange={this.handleTerms} error={this.state.errors.terms} />
 
           <Divider />
 
           <Button.Group>
-            <Button onClick={() => this.props.history.push('/going-deeper-in-crud')}>Cancel and back</Button>
+            <Button type="button" onClick={() => this.props.history.push('/going-deeper-in-crud')}>Cancel and back</Button>
             <Button.Or text='or' />
             <Button positive>Submit</Button>
           </Button.Group>
@@ -132,7 +186,8 @@ class BandsForm extends React.Component {
 
 const mapStateToProps = (state, props) => {
   return {
-    band: state.bands.filter(x => x._id === parseInt(props.match.params._id))[0] || {}
+    band: state.bands.filter(x => x._id === parseInt(props.match.params._id))[0] || {},
+    bands: state.bands
   };
 }
 
