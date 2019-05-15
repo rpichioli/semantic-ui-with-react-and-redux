@@ -81,6 +81,10 @@ class BandsForm extends React.Component {
           </Step>
         </Step.Group>
 
+        <br />
+        {/* Navigation */}
+        <Button icon labelPosition='left' onClick={() => this.props.history.push('/going-deeper-in-crud')}><Icon name='angle left' /> Back</Button>
+
         {/* Form */}
         <Form onSubmit={this.handleSubmit}>
           <Form.Group widths='equal'>

@@ -32,7 +32,8 @@ class BandsList extends React.Component {
 			  </Step.Group>
 
         <br />
-      <Button icon labelPosition='left' onClick={() => this.props.history.push('/going-deeper-in-crud/add')}><Icon name='add' /> Add</Button>
+        {/* Navigation */}
+        <Button icon labelPosition='left' onClick={() => this.props.history.push('/going-deeper-in-crud/add')}><Icon name='add' /> Add</Button>
 
 				{/* Grid */}
 				<Table celled>

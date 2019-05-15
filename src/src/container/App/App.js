@@ -1,6 +1,6 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
-import { Menu, Dropdown, Icon, Button, Container } from 'semantic-ui-react';
+import { withRouter } from 'react-router-dom'; // Wraps component with route properties and more..
+import { Segment, Menu, Dropdown, Icon, Button, Container } from 'semantic-ui-react';
 
 import logo from './logo.svg';
 import './App.css';
@@ -8,6 +8,21 @@ import './App.css';
 class App extends React.Component {
   state = {}
 
+  /**
+   * Always select the first position of pathname splitted by '/' to active the respective option in menu
+   * @return {void}
+   */
+  componentDidMount = () => {
+    let route_fragments = this.props.location.pathname.split('/');
+    this.setState({ activeItem: route_fragments[1] });
+  }
+
+  /**
+   * Handle click into menu and set active
+   * @param  {object} e    Event
+   * @param  {string} name Name related to the event source
+   * @return {void}
+   */
   handleItemClick = (e, { name }) => {
     this.setState({ activeItem: name });
     this.props.history.push(`/${name}`);
@@ -17,7 +32,7 @@ class App extends React.Component {
     const { activeItem } = this.state
     return (
       <div className="app-container">
-        <Menu size='large' inverted>{/* pointing secondary */}
+        <Menu color={'blue'} size='large' inverted>{/* pointing secondary inverted*/}
           {/* Header */}
           <Menu.Item header>
             <img src={logo} alt='logo' /> React Application
@@ -47,7 +62,7 @@ class App extends React.Component {
             {/* Button */}
             <Menu.Item>
               <Button primary onClick={() => window.open('https://www.github.com/rpichioli', '_blank')}>
-                <Icon name="github" /> rpichioli | visit profile
+                <Icon name="github" /> rpichioli - visit profile
               </Button>
             </Menu.Item>
           </Menu.Menu>
