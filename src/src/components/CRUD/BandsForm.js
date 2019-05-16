@@ -10,7 +10,7 @@ class BandsForm extends React.Component {
     title: this.props.band.title || '',
     nationality: this.props.band.nationality || '',
     rate: this.props.band.rate || 0,
-    status: this.props.band.status || true,
+    status: typeof (this.props.band.status) === 'boolean' ? this.props.band.status : true,
     description: this.props.band.description || '',
     creationDate: this.props.band.creationDate || new Date(),
     terms: false,
@@ -123,12 +123,13 @@ class BandsForm extends React.Component {
         <Button icon labelPosition='left' onClick={() => this.props.history.push('/going-deeper-in-crud')}><Icon name='angle left' /> Back</Button>
 
         <Header as='h2' dividing>Try to use the form below
-          <Label as='a' color='red'>redux store connection</Label>
-          <Label as='a' color='orange'>validation</Label>
-          <Label as='a' color='yellow'>events</Label>
-          <Label as='a' color='olive'>life-cycle</Label>
-          <Label as='a' color='green'>redux actions</Label>
-          <Label as='a' color='teal'>routing</Label>
+          <Label as='span' color='olive' size='small'>semantic ui components</Label>
+          <Label as='span' color='olive' size='small'>redux store connection</Label>
+          <Label as='span' color='olive' size='small'>validation</Label>
+          <Label as='span' color='olive' size='small'>events</Label>
+          <Label as='span' color='olive' size='small'>life-cycle</Label>
+          <Label as='span' color='olive' size='small'>redux actions</Label>
+          <Label as='span' color='olive' size='small'>routing</Label>
         </Header>
 
         {/* Form */}

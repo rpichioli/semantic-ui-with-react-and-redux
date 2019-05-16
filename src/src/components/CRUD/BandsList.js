@@ -41,14 +41,22 @@ class BandsList extends React.Component {
 
         <br />
         {/* Navigation */}
-        <Button icon labelPosition='left' onClick={() => this.props.history.push('/going-deeper-in-crud/add')}><Icon name='add' /> Add</Button>
+        <Button icon labelPosition='left' onClick={() => this.props.history.push('/going-deeper-in-crud/add')}><Icon name='add' /> New</Button>
+
+        <Header as='h2' dividing>All registers
+          <Label as='span' color='olive' size='small'>semantic ui components</Label>
+          <Label as='span' color='olive' size='small'>redux store connection</Label>
+          <Label as='span' color='olive' size='small'>redux actions</Label>
+          <Label as='span' color='olive' size='small'>life-cycle</Label>
+          <Label as='span' color='olive' size='small'>routing</Label>
+        </Header>
 
 				{/* Grid */}
 				<Table celled striped>
 			    <Table.Header>
 			      <Table.Row>
 							<Table.HeaderCell>Enabled</Table.HeaderCell>
-              <Table.HeaderCell>Title</Table.HeaderCell>
+              <Table.HeaderCell>Band Title <Label as='span' size='medium' color=''>Click the link to update band information</Label></Table.HeaderCell>
               <Table.HeaderCell>Nationality</Table.HeaderCell>
               <Table.HeaderCell>Rating</Table.HeaderCell>
               <Table.HeaderCell>Created in</Table.HeaderCell>
@@ -63,31 +71,31 @@ class BandsList extends React.Component {
     							<Table.Cell collapsing><Radio toggle name={'status_'+i} checked={item.status} /></Table.Cell>
                   <Table.Cell><a href={`/going-deeper-in-crud/edit/${item._id}`}>{item.title}</a></Table.Cell>{/*<Label ribbon>{item.status}</Label>*/}
                   <Table.Cell collapsing>{item.nationality}</Table.Cell>
-                  <Table.Cell collapsing><Rating maxRating={5} defaultRating={item.rate} icon='star' size='small' /></Table.Cell>
+                  <Table.Cell collapsing><Rating maxRating={5} defaultRating={item.rate} icon='star' size='small' disabled /></Table.Cell>
                   <Table.Cell collapsing>{new Date(item.creationDate).toLocaleDateString('pt-br')}</Table.Cell>
     			      </Table.Row>)
               })
             }
 			    </Table.Body>
 
-			    <Table.Footer>
+			    {/*<Table.Footer>
 			      <Table.Row>
-			        <Table.HeaderCell colSpan='3'>
+			        <Table.HeaderCell colSpan='5'>
 			          <Menu floated='right' pagination>
 			            <Menu.Item as='a' icon>
 			              <Icon name='chevron left' />
-			            </Menu.Item>
-			            <Menu.Item as='a'>1</Menu.Item>
-			            <Menu.Item as='a'>2</Menu.Item>
-			            <Menu.Item as='a'>3</Menu.Item>
-			            <Menu.Item as='a'>4</Menu.Item>
-			            <Menu.Item as='a' icon>
+  			            </Menu.Item>
+  			            <Menu.Item as='a'>1</Menu.Item>
+  			            <Menu.Item as='a'>2</Menu.Item>
+  			            <Menu.Item as='a'>3</Menu.Item>
+  			            <Menu.Item as='a'>4</Menu.Item>
+  			            <Menu.Item as='a' icon>
 			              <Icon name='chevron right' />
 			            </Menu.Item>
 			          </Menu>
 			        </Table.HeaderCell>
 			      </Table.Row>
-			    </Table.Footer>
+			    </Table.Footer>*/}
 			  </Table>
 			</React.Fragment>
 		)
