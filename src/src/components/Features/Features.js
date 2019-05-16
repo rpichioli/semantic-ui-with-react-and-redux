@@ -20,7 +20,7 @@ class Features extends React.Component {
 						      <Item.Header as='a'>{item.title}</Item.Header>
 						      <Item.Meta>{item.nationality}</Item.Meta>
 						      <Item.Description>{item.description}</Item.Description>
-						      <Item.Extra><b>Rating:</b> {item.rate} - <b>Created in:</b> {item.creationDate}</Item.Extra>
+						      <Item.Extra><b>Rating:</b> {item.rate} - <b>Created in:</b> {new Date(item.creationDate).toLocaleDateString('pt-br')}</Item.Extra>
 						    </Item.Content>
 						  </Item>
 						)
