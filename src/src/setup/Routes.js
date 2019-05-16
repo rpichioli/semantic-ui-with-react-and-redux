@@ -7,6 +7,7 @@ import Home from '../components/Home/Home';
 import About from '../components/About/About';
 import CRUDList from '../components/CRUD/BandsList';
 import CRUDForm from '../components/CRUD/BandsForm';
+import Features from '../components/Features/Features';
 
 const Routes = (props) => {
 	return (
@@ -16,8 +17,8 @@ const Routes = (props) => {
 			<Route exact path="/going-deeper-in-crud" component={CRUDList} />
 			<Route exact path="/going-deeper-in-crud/add" component={CRUDForm} />
 			<Route exact path="/going-deeper-in-crud/edit/:_id" component={CRUDForm} />
-			{/*<Route exact path="/advanced-components-and-features" component={About} />
-			<Route exact path="/reference-guide" component={About} />
+			<Route exact path="/advanced-components-and-features" component={Features} />
+			{/*<Route exact path="/reference-guide" component={About} />
 			<Route exact path="/release-notes" component={About} />*/}
 			<Route component={NotFound} />
 		</Switch>

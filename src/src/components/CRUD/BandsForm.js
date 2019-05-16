@@ -13,6 +13,7 @@ class BandsForm extends React.Component {
     status: typeof (this.props.band.status) === 'boolean' ? this.props.band.status : true,
     description: this.props.band.description || '',
     creationDate: this.props.band.creationDate || new Date(),
+    image: this.props.band.image || '',
     terms: false,
     errors: {},
     loading: false
@@ -23,6 +24,7 @@ class BandsForm extends React.Component {
     if (validator.isEmpty(this.state.title)) Object.assign(errors, {title: 'Title field is required'});
     if (validator.isEmpty(this.state.nationality)) Object.assign(errors, {nationality: 'Nationality field is required'});
     if (validator.isEmpty(this.state.description)) Object.assign(errors, {description: 'Description field is required'});
+    if (validator.isEmpty(this.state.image)) Object.assign(errors, {image: 'Image field is required'});
     if (!(this.state.terms)) Object.assign(errors, {terms: 'Terms must be accepted'});
     this.setState({errors})
     return Object.keys(errors).length === 0;
@@ -72,12 +74,12 @@ class BandsForm extends React.Component {
    */
   handleSubmit = (e) => {
     if (!this.validate()) return;
-    let {_id, title, nationality, rate, status, description, creationDate} = this.state;
+    let {_id, title, nationality, rate, status, description, creationDate, image} = this.state;
     if (this.state._id === 0) {
       let maxID = Math.max.apply(Math, this.props.bands.map(function(item) { return item._id; }))
-      this.props.addBand({_id: maxID + 1, title, nationality, rate, status, description, creationDate});
+      this.props.addBand({_id: maxID + 1, title, nationality, rate, status, description, creationDate, image});
     } else {
-      this.props.updateBand({_id, title, nationality, rate, status, description, creationDate});
+      this.props.updateBand({_id, title, nationality, rate, status, description, creationDate, image});
     }
     this.props.history.push('/going-deeper-in-crud');
   }
@@ -145,6 +147,8 @@ class BandsForm extends React.Component {
             <Form.Input fluid label='Title' placeholder='Band title' name="title" value={this.state.title} error={this.state.errors.title} onChange={this.handleChange} />
             <Form.Input fluid label='Nationality' placeholder='Country where the band was born' name="nationality" value={this.state.nationality} error={this.state.errors.nationality} onChange={this.handleChange} />
           </Form.Group>
+
+          <Form.Input fluid label='Image' placeholder='Link to the band image' name="image" value={this.state.image} error={this.state.errors.image} onChange={this.handleChange} />
 
           <Form.TextArea label='Short description' placeholder='Tell us about the band' name='description' value={this.state.description} error={this.state.errors.description} onChange={this.handleChange} />
 

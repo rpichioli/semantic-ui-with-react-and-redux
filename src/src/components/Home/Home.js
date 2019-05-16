@@ -1,11 +1,11 @@
 import React from 'react';
-import { Message } from 'semantic-ui-react';
+import { Message, Header } from 'semantic-ui-react';
 
 class Home extends React.Component {
 	render () {
 		return (
 			<React.Fragment>
-				<h1>Welcome buddy!</h1>
+				<Header as='h1' dividing>Welcome buddy</Header>
 				<p>Navigate the top menu to explore the application and documentation.</p>
 
 				<h4>Relative repositories by my own</h4>

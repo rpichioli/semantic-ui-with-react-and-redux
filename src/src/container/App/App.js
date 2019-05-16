@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom'; // Wraps component with route properties and more..
-import { Segment, Menu, Dropdown, Icon, Button, Container } from 'semantic-ui-react';
+import { Segment, Menu, Dropdown, Icon, Button, Container, Popup } from 'semantic-ui-react';
 
 import logo from './logo.svg';
 import './App.css';
@@ -60,11 +60,17 @@ class App extends React.Component {
             </Dropdown>
 
             {/* Button */}
-            <Menu.Item>
-              <Button primary onClick={() => window.open('https://www.github.com/rpichioli', '_blank')}>
-                <Icon name="github" /> rpichioli - visit profile
-              </Button>
-            </Menu.Item>
+            <Popup content='Visit my GitHub profile' trigger={
+              <Menu.Item>
+                <Button
+                  color='grey'
+                  content='rpichioli'
+                  icon='github'
+                  labelPosition='left'
+                  onClick={() => window.open('https://www.github.com/rpichioli', '_blank')}
+                />
+              </Menu.Item>
+            } />
           </Menu.Menu>
         </Menu>
 

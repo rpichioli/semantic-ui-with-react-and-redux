@@ -43,7 +43,7 @@ class BandsList extends React.Component {
         {/* Navigation */}
         <Button icon labelPosition='left' onClick={() => this.props.history.push('/going-deeper-in-crud/add')}><Icon name='add' /> New</Button>
 
-        <Header as='h2' dividing>All registers
+        <Header as='h2' dividing>Displaying all records
           <Label as='span' color='olive' size='small'>semantic ui components</Label>
           <Label as='span' color='olive' size='small'>redux store connection</Label>
           <Label as='span' color='olive' size='small'>redux actions</Label>
@@ -55,6 +55,7 @@ class BandsList extends React.Component {
 				<Table celled striped>
 			    <Table.Header>
 			      <Table.Row>
+							<Table.HeaderCell>#</Table.HeaderCell>
 							<Table.HeaderCell>Enabled</Table.HeaderCell>
               <Table.HeaderCell>Band Title <Label as='span' size='medium' color=''>Click the link to update band information</Label></Table.HeaderCell>
               <Table.HeaderCell>Nationality</Table.HeaderCell>
@@ -68,6 +69,7 @@ class BandsList extends React.Component {
               bands.map((item, i) => {
                 console.log(item.status, typeof item.status)
     			      return (<Table.Row key={i}>
+    							<Table.Cell collapsing><img src={item.image} width={'60px'} /></Table.Cell>
     							<Table.Cell collapsing><Radio toggle name={'status_'+i} checked={item.status} /></Table.Cell>
                   <Table.Cell><a href={`/going-deeper-in-crud/edit/${item._id}`}>{item.title}</a></Table.Cell>{/*<Label ribbon>{item.status}</Label>*/}
                   <Table.Cell collapsing>{item.nationality}</Table.Cell>
