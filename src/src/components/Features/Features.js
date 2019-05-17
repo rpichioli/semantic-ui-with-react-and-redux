@@ -1,31 +1,45 @@
 import React from 'react'
-import {Header, Image, Item} from "semantic-ui-react";
+import {Header, Image, Item, Tab} from "semantic-ui-react";
 import {connect} from 'react-redux';
 
 class Features extends React.Component {
 	render () {
 		let bands = this.props.bands;
+		let panes = [];
+
+		panes.push({
+			menuItem: 'Group of Items',
+			render: () => <Tab.Pane attached={false}>
+				<Item.Group divided>
+					{bands.map((item, i) => {
+						return (
+							<Item>
+								<Item.Image size='tiny' src={item.image} />
+
+								<Item.Content>
+									<Item.Header as='a'>{item.title}</Item.Header>
+									<Item.Meta>{item.nationality}</Item.Meta>
+									<Item.Description>{item.description}</Item.Description>
+									<Item.Extra><b>Rating:</b> {item.rate} - <b>Created in:</b> {new Date(item.creationDate).toLocaleDateString('pt-br')}</Item.Extra>
+								</Item.Content>
+							</Item>
+						)
+					})}
+				</Item.Group>
+			</Tab.Pane>
+		});
+
+		panes.push({
+			menuItem: 'Group of Items',
+			render: () =>
+		});
+
 		return (
 			<React.Fragment>
 				<Header as='h1' dividing>Advanced components and features</Header>
 				<p>At this point we will generate and manipulate Semantic UI React components with existing Redux information.</p>
 
-				<Item.Group divided>
-					{bands.map((item, i) => {
-						return (
-							<Item>
-						    <Item.Image size='tiny' src={item.image} />
-
-						    <Item.Content>
-						      <Item.Header as='a'>{item.title}</Item.Header>
-						      <Item.Meta>{item.nationality}</Item.Meta>
-						      <Item.Description>{item.description}</Item.Description>
-						      <Item.Extra><b>Rating:</b> {item.rate} - <b>Created in:</b> {new Date(item.creationDate).toLocaleDateString('pt-br')}</Item.Extra>
-						    </Item.Content>
-						  </Item>
-						)
-					})}
-				</Item.Group>
+				<Tab panes={panes} menu={{ secondary: true, pointing: true }} />
 			</React.Fragment>
 		)
 	}
