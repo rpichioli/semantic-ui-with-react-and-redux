@@ -36,84 +36,87 @@ class Features extends React.Component {
 
 		panes.push({
 			menuItem: 'Listing Items View',
-			render: () => <Tab.Pane attached={false}>
-				<Item.Group divided>
-					{bands.map((item, i) => (
-						<Item>
-							<Item.Image size='tiny' src={item.image} />
+			render: () => 
+				<Tab.Pane attached={false}>
+					<Item.Group divided>
+						{bands.map((item, i) => (
+							<Item>
+								<Item.Image size='tiny' src={item.image} />
 
-							<Item.Content>
-								<Item.Header as='a'>{item.title}</Item.Header>
-								<Item.Meta>{item.nationality}</Item.Meta>
-								<Item.Description>{item.description}</Item.Description>
-								<Item.Extra><b>Rating:</b> {item.rate} - <b>Created in:</b> {new Date(item.creationDate).toLocaleDateString('pt-br')}</Item.Extra>
-							</Item.Content>
-						</Item>
-					))}
-				</Item.Group>
-			</Tab.Pane>
+								<Item.Content>
+									<Item.Header as='a'>{item.title}</Item.Header>
+									<Item.Meta>{item.nationality}</Item.Meta>
+									<Item.Description>{item.description}</Item.Description>
+									<Item.Extra><b>Rating:</b> {item.rate} - <b>Created in:</b> {new Date(item.creationDate).toLocaleDateString('pt-br')}</Item.Extra>
+								</Item.Content>
+							</Item>
+						))}
+					</Item.Group>
+				</Tab.Pane>
 		});
 		panes.push({
 			menuItem: 'Advanced Search',
-			render: () => <Grid>
-        <Grid.Column width={6}>
-          <Search
-            loading={isLoading}
-            onResultSelect={this.handleResultSelect}
-            onSearchChange={_.debounce(this.handleSearchChange, 500, {leading: true})}
-            results={results}
-            value={value}
-            {...this.props}
-          />
-        </Grid.Column>
-        <Grid.Column width={10}>
-          <Segment>
-            <Header>State</Header>
-            <pre style={{ overflowX: 'auto' }}>
-              {JSON.stringify(this.state, null, 2)}
-            </pre>
-            <Header>Options</Header>
-            <pre style={{ overflowX: 'auto' }}>
-              {JSON.stringify(bands, null, 2)}
-            </pre>
-          </Segment>
-        </Grid.Column>
-      </Grid>
+			render: () =>
+				<Grid>
+	        <Grid.Column width={6}>
+	          <Search
+	            loading={isLoading}
+	            onResultSelect={this.handleResultSelect}
+	            onSearchChange={_.debounce(this.handleSearchChange, 500, {leading: true})}
+	            results={results}
+	            value={value}
+	            {...this.props}
+	          />
+	        </Grid.Column>
+	        <Grid.Column width={10}>
+	          <Segment>
+	            <Header>State</Header>
+	            <pre style={{ overflowX: 'auto' }}>
+	              {JSON.stringify(this.state, null, 2)}
+	            </pre>
+	            <Header>Options</Header>
+	            <pre style={{ overflowX: 'auto' }}>
+	              {JSON.stringify(bands, null, 2)}
+	            </pre>
+	          </Segment>
+	        </Grid.Column>
+	      </Grid>
 		});
 		panes.push({
 			menuItem: 'Grouping, Images and Modal',
-			render: () => <Image.Group size='small'>
-				{bands.map((item, i) => (
-					<Modal
-						trigger={
-							<Image
-								onClick={() => this.handleOpen(item)}
-								src={item.image}
-								style={{'cursor': 'pointer'}}
-							/>
-						}
-						open={this.state.modalOpen}
-						onClose={this.handleClose}
-						size='small'
-						basic
-					>
-				    <Header icon='react' content={this.state.selected.title} />
-				    <Modal.Content>
-				      <Image src={this.state.selected.image} size='small' />
-							<p>{this.state.selected.description}</p>
-							<p><b>Nationality:</b> {this.state.selected.nationality} - <b>Created in:</b> {new Date(this.state.selected.creationDate).toLocaleDateString('pt-br')}</p>
-				    </Modal.Content>
-				    <Modal.Actions>
-				      <Button basic color='red' inverted onClick={this.handleClose}>
-				        <Icon name='remove' /> No
-				      </Button>
-				      <Button color='green' inverted onClick={this.handleClose}>
-				        <Icon name='checkmark' /> Yes
-				      </Button>
-				    </Modal.Actions>
-				  </Modal>
-				))}
-			</Image.Group>
+			render: () =>
+				<Image.Group size='small'>
+					{bands.map((item, i) => (
+						<Modal
+							trigger={
+								<Image
+									onClick={() => this.handleOpen(item)}
+									src={item.image}
+									style={{'cursor': 'pointer'}}
+								/>
+							}
+							open={this.state.modalOpen}
+							onClose={this.handleClose}
+							size='small'
+							basic
+						>
+					    <Header icon='react' content={this.state.selected.title} />
+					    <Modal.Content>
+					      <Image src={this.state.selected.image} size='small' />
+								<p>{this.state.selected.description}</p>
+								<p><b>Nationality:</b> {this.state.selected.nationality} - <b>Created in:</b> {new Date(this.state.selected.creationDate).toLocaleDateString('pt-br')}</p>
+					    </Modal.Content>
+					    <Modal.Actions>
+					      <Button basic color='red' inverted onClick={this.handleClose}>
+					        <Icon name='remove' /> No
+					      </Button>
+					      <Button color='green' inverted onClick={this.handleClose}>
+					        <Icon name='checkmark' /> Yes
+					      </Button>
+					    </Modal.Actions>
+					  </Modal>
+					))}
+				</Image.Group>
 		});
 
 		return (
