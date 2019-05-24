@@ -6,10 +6,10 @@ class About extends React.Component {
 		return (
 			<React.Fragment>
 				<Header as='h1' dividing>About</Header>
-				<p>You are in a React + Redux application using Semantic UI and it's React components.</p>
-				<p>The ideia is to build a full-working app demonstrating the usage of these <b>technologies togheter in a real-life based application</b>.</p>
-				<p>This application has no focus on server-side so we will <b>handle Redux store directly</b> calling actions and reducers without API requests.</p>
-				<p><b>Semantic UI</b> has a lot of good patterns, components and more and is being adopted by developers each time more day by day, so it's nice and good to see it in action with it's React components.</p>
+				<p>Single-Page Application built with React using Redux to handle state in sync with localStorage and Semantic UI in whole layout experimenting it's own React components and features.</p>
+				<p>The main ideia is to build a full-working app demonstrating the usage of these <b>technologies togheter in a real-life based application</b> passing from CRUD handling Redux data, form usage and grid view to specific and advanced features exploring Semantic UI components connected to Redux store.</p>
+				<p>There's no interest on server-side here, that's why I made the choice to use Redux store like database and take the chance to show how I work in sync with localStorage.</p>
+				<p><b>Semantic UI</b> has a lot of good patterns, components and more. I'ts being adopted in mass by developers each time more, day by day, so it's nice and good to see it in action! And of course it's ownReact components too.</p>
 			</React.Fragment>
 		)
 	}
