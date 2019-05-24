@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import {Header, Image, Item, Tab, Search, Grid, Segment, Modal, Button, Icon, Progress, Statistic} from "semantic-ui-react";
+import {Header, Image, Item, Tab, Search, Grid, List, Segment, Modal, Button, Icon, Progress, Statistic, Rating} from "semantic-ui-react";
 import {connect} from 'react-redux';
 
 class Features extends React.Component {
@@ -26,7 +26,7 @@ class Features extends React.Component {
       const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
       const isMatch = result => re.test(result.title)
 
-      this.setState({ isLoading: false, results: _.filter(this.props.bands, isMatch) })
+      this.setState({ isLoading: false, results: _.filter(this.props.bands_for_seaching, isMatch) })
     }, 300)
   }
 	handleTabChange = (e, data) => {
@@ -53,7 +53,7 @@ class Features extends React.Component {
 		let panes = [];
 
 		panes.push({
-			menuItem: 'Listing Items View',
+			menuItem: 'Listing whole content items',
 			render: () => <Tab.Pane attached={false}>
 				<Item.Group divided>
 					{bands.map((item, i) => (
@@ -62,9 +62,24 @@ class Features extends React.Component {
 
 							<Item.Content>
 								<Item.Header as='a'>{item.title}</Item.Header>
-								<Item.Meta>{item.nationality}</Item.Meta>
-								<Item.Description>{item.description}</Item.Description>
-								<Item.Extra><b>Rating:</b> {item.rate} - <b>Created in:</b> {new Date(item.creationDate).toLocaleDateString('pt-br')}</Item.Extra>
+								<Item.Meta blue>{item.nationality}</Item.Meta>
+								<Item.Description>{item.description.split('\n').map(item => <p>{item}</p>)}</Item.Description>
+								<Item.Extra>
+									<List>
+										<List.Item>
+											<List.Header>Rating</List.Header>
+											<Rating maxRating={5} defaultRating={item.rate} icon='star' size='small' disabled />
+										</List.Item>
+										<List.Item>
+											<List.Header>Created in</List.Header>
+											{new Date(item.creationDate).toLocaleDateString('pt-br')}
+										</List.Item>
+										<List.Item>
+											<List.Header>Status</List.Header>
+											{item.status ? 'Enabled' : 'Disabled'}
+										</List.Item>
+									</List>
+								</Item.Extra>
 							</Item.Content>
 						</Item>
 					))}
@@ -72,7 +87,7 @@ class Features extends React.Component {
 			</Tab.Pane>
 		});
 		panes.push({
-			menuItem: 'Advanced Search',
+			menuItem: 'Dynamic advanced search',
 			render: () => <Grid>
         <Grid.Column width={6}>
           <Search
@@ -99,7 +114,7 @@ class Features extends React.Component {
       </Grid>
 		});
 		panes.push({
-			menuItem: 'Grouping, Images and Modal',
+			menuItem: 'Images collection and details modal',
 			render: () => <Image.Group size='small'>
 				{bands.map((item, i) => (
 					<Modal
@@ -134,7 +149,7 @@ class Features extends React.Component {
 			</Image.Group>
 		});
 		panes.push({
-			menuItem: 'Progress and Statistic',
+			menuItem: 'Progress and Statistics',
 			render: () =>
 			<React.Fragment>
 				<Progress percent={this.state.percent} indicating />
@@ -158,7 +173,19 @@ class Features extends React.Component {
 }
 
 const mapStateToProps = (state, props) => {
-	return {bands: state.bands}
+	let bands_for_seaching = [];
+	state.bands.map(item => {
+		bands_for_seaching.push({
+			title: item.title,
+	    description: item.nationality,
+	    image: item.image,
+	    price: item.rate
+		});
+	});
+	return {
+		bands: state.bands,
+		bands_for_seaching: bands_for_seaching
+	}
 }
 
 export default connect(mapStateToProps, {})(Features);
