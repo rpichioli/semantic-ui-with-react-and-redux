@@ -30,10 +30,11 @@ class Features extends React.Component {
     }, 300)
   }
 	handleTabChange = (e, data) => {
-		if (data.activeIndex === 3) {
-			// Reset percent on tab change
-			this.setState({ percent: 0 });
+		// Reset percent on tab change
+		this.setState({ percent: 0 });
 
+		// Progress bar tab
+		if (data.activeIndex === 3) {
 			// Time to auto fill the progress bar
 			let timer = setInterval(() => {
 				if (this.state.percent < 100)
