@@ -55,7 +55,7 @@ class App extends React.Component {
               <Dropdown.Menu>
                 <Dropdown.Item name="about" onClick={this.handleItemClick}><Icon name="info circle" /> About</Dropdown.Item>
                 <Dropdown.Item name="reference-guide" onClick={this.handleItemClick}><Icon name="graduation cap" /> Reference guide</Dropdown.Item>
-                <Dropdown.Item name="release-notes" onClick={this.handleItemClick}><Icon name="map signs" /> Release notes</Dropdown.Item>
+                {/*<Dropdown.Item name="release-notes" onClick={this.handleItemClick}><Icon name="map signs" /> Release notes</Dropdown.Item>*/}
               </Dropdown.Menu>
             </Dropdown>
 
