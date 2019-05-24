@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import {Header, Image, Item, Tab, Search, Grid, Segment, Modal, Button, Icon} from "semantic-ui-react";
+import {Header, Image, Item, Tab, Search, Grid, Segment, Modal, Button, Icon, Progress, Statistic} from "semantic-ui-react";
 import {connect} from 'react-redux';
 
 class Features extends React.Component {
@@ -10,7 +10,8 @@ class Features extends React.Component {
 		results: [],
 		value: '',
 		modalOpen: false,
-		selected: {}
+		selected: {},
+		percent: 0
 	}
 
 	handleOpen = (selected) => this.setState({ modalOpen: true, selected })
@@ -28,6 +29,23 @@ class Features extends React.Component {
       this.setState({ isLoading: false, results: _.filter(this.props.bands, isMatch) })
     }, 300)
   }
+	handleTabChange = (e, data) => {
+		if (data.activeIndex === 3) {
+			// Reset percent on tab change
+			this.setState({ percent: 0 });
+
+			// Time to auto fill the progress bar
+			let timer = setInterval(() => {
+				if (this.state.percent < 100)
+					this.setState({ percent: this.state.percent + 0.01 });
+				else {
+					this.setState({ percent: 100 });
+					clearInterval(timer);
+
+				}
+			}, 1);
+		}
+	}
 
 	render () {
 		const { isLoading, value, results } = this.state;
@@ -115,6 +133,17 @@ class Features extends React.Component {
 				))}
 			</Image.Group>
 		});
+		panes.push({
+			menuItem: 'Progress and Statistic',
+			render: () =>
+			<React.Fragment>
+				<Progress percent={this.state.percent} indicating />
+				<Statistic color={this.state.percent === 100 ? 'green' : ''} horizontal>
+			    <Statistic.Value>{this.state.percent}</Statistic.Value>
+			    <Statistic.Label>Progress</Statistic.Label>
+			  </Statistic>
+			</React.Fragment>
+		});
 
 		return (
 			<React.Fragment>
@@ -122,7 +151,7 @@ class Features extends React.Component {
 				<p>At this point we will group and manipulate advanced Semantic UI React components using data from our Redux store</p>
 				<p>The Redux store is filled by initial state provided directly in reducer and by data provided into the <b>Going Deeper in CRUD</b> topic too.</p>
 
-				<Tab panes={panes} menu={{ secondary: true, pointing: true }} />
+				<Tab panes={panes} onTabChange={this.handleTabChange} menu={{ secondary: true, pointing: true }} />
 			</React.Fragment>
 		)
 	}
