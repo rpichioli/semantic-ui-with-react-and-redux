@@ -1,7 +1,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {Divider, Header, Message, Icon, Step, Menu, Table, Label, Checkbox, Button, Radio, Rating} from "semantic-ui-react";
+import {Header, Icon, Step, Table, Label, Button, Radio, Rating} from "semantic-ui-react"; //Divider, Message, Menu, Checkbox
 import {fetchBands} from '../../actions/bands';
 
 class BandsList extends React.Component {
@@ -69,7 +69,7 @@ class BandsList extends React.Component {
               bands.map((item, i) => {
                 console.log(item.status, typeof item.status)
     			      return (<Table.Row key={i}>
-    							<Table.Cell collapsing><img src={item.image} width={'60px'} /></Table.Cell>
+    							<Table.Cell collapsing><img src={item.image} width={'60px'} alt="Key {i}" /></Table.Cell>
     							<Table.Cell collapsing><Radio toggle name={'status_'+i} checked={item.status} /></Table.Cell>
                   <Table.Cell><a href={`/going-deeper-in-crud/edit/${item._id}`}>{item.title}</a></Table.Cell>{/*<Label ribbon>{item.status}</Label>*/}
                   <Table.Cell collapsing>{item.nationality}</Table.Cell>

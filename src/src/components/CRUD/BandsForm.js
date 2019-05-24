@@ -1,5 +1,5 @@
 import React from 'react';
-import {Step, Icon, Divider, Form, Header, Message, Segment, Button, Rating, Radio, Label} from "semantic-ui-react";
+import {Step, Icon, Divider, Form, Header, Message, Button, Rating, Radio, Label} from "semantic-ui-react"; //Segment
 import {connect} from 'react-redux';
 import validator from 'validator';
 import {addBand, updateBand} from '../../actions/bands';
