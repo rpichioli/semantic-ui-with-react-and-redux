@@ -1,7 +1,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {Header, Icon, Step, Table, Label, Button, Radio, Rating} from "semantic-ui-react"; //Divider, Message, Menu, Checkbox
+import {Header, Icon, Step, Table, Label, Button, Rating} from "semantic-ui-react"; //Divider, Message, Menu, Checkbox
 import {fetchBands} from '../../actions/bands';
 
 class BandsList extends React.Component {

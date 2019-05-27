@@ -174,14 +174,14 @@ class Features extends React.Component {
 }
 
 const mapStateToProps = (state, props) => {
-	let bands_for_seaching = [];
-	state.bands.map(item => {
-		bands_for_seaching.push({
+	// Adds object to new array with search required mapping fields
+	let bands_for_seaching = state.bands.map(item => {
+		return {
 			title: item.title,
 	    description: item.nationality,
 	    image: item.image,
 	    price: item.rate
-		});
+		};
 	});
 	return {
 		bands: state.bands,
