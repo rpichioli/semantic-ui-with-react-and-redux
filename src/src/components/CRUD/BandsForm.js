@@ -122,16 +122,16 @@ class BandsForm extends React.Component {
 
         <br />
         {/* Navigation */}
-        <Button icon labelPosition='left' onClick={() => this.props.history.push('/going-deeper-in-crud')}><Icon name='angle left' /> Back</Button>
+        <Button icon labelPosition='left' size="tiny" onClick={() => this.props.history.push('/going-deeper-in-crud')}><Icon name='angle left' /> Back</Button>
 
         <Header as='h2' dividing>Try to use the form below
-          <Label as='span' color='olive' size='small'>semantic ui components</Label>
-          <Label as='span' color='olive' size='small'>redux store connection</Label>
-          <Label as='span' color='olive' size='small'>validation</Label>
-          <Label as='span' color='olive' size='small'>events</Label>
-          <Label as='span' color='olive' size='small'>life-cycle</Label>
-          <Label as='span' color='olive' size='small'>redux actions</Label>
-          <Label as='span' color='olive' size='small'>routing</Label>
+          <Label as='span' color='' size='small'>semantic ui components</Label>
+          <Label as='span' color='' size='small'>redux store connection</Label>
+          <Label as='span' color='' size='small'>validation</Label>
+          <Label as='span' color='' size='small'>events</Label>
+          <Label as='span' color='' size='small'>life-cycle</Label>
+          <Label as='span' color='' size='small'>redux actions</Label>
+          <Label as='span' color='' size='small'>routing</Label>
         </Header>
 
         {/* Form */}
@@ -144,13 +144,13 @@ class BandsForm extends React.Component {
           />
 
           <Form.Group widths='equal'>
-            <Form.Input fluid label='Title' placeholder='Band title' name="title" value={this.state.title} error={this.state.errors.title} onChange={this.handleChange} />
-            <Form.Input fluid label='Nationality' placeholder='Country where the band was born' name="nationality" value={this.state.nationality} error={this.state.errors.nationality} onChange={this.handleChange} />
+            <Form.Input fluid required label='Title' placeholder='Band title' name="title" value={this.state.title} error={this.state.errors.title} onChange={this.handleChange} />
+            <Form.Input fluid required label='Nationality' placeholder='Country where the band was born' name="nationality" value={this.state.nationality} error={this.state.errors.nationality} onChange={this.handleChange} />
           </Form.Group>
 
-          <Form.Input fluid label='Image' placeholder='Link to the band image' name="image" value={this.state.image} error={this.state.errors.image} onChange={this.handleChange} />
+          <Form.Input fluid label='Image' placeholder='Link to the band image' name="image" value={this.state.image} error={this.state.errors.image} onChange={this.handleChange} required />
 
-          <Form.TextArea label='Short description' placeholder='Tell us about the band' name='description' value={this.state.description} error={this.state.errors.description} onChange={this.handleChange} />
+          <Form.TextArea label='Short description' placeholder='Tell us about the band' name='description' value={this.state.description} error={this.state.errors.description} onChange={this.handleChange} required />
 
           <div className="fields">
             <div className="three wide field">
@@ -174,7 +174,7 @@ class BandsForm extends React.Component {
             />
           </div>
 
-          <Form.Checkbox name='terms' label='I agree to the Terms and Conditions' onChange={this.handleTerms} error={this.state.errors.terms} />
+          <Form.Checkbox name='terms' label='I agree to the Terms and Conditions' onChange={this.handleTerms} error={this.state.errors.terms} required />
 
           <Divider />
 
