@@ -1,7 +1,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {Divider, Header, Message, Icon, Step, Menu, Table, Label, Checkbox, Button, Radio, Rating} from "semantic-ui-react";
+import {Header, Icon, Step, Table, Label, Button, Rating} from "semantic-ui-react"; //Divider, Message, Menu, Checkbox
 import {fetchBands} from '../../actions/bands';
 
 class BandsList extends React.Component {
@@ -41,26 +41,26 @@ class BandsList extends React.Component {
 
         <br />
         {/* Navigation */}
-        <Button icon labelPosition='left' onClick={() => this.props.history.push('/going-deeper-in-crud/add')}><Icon name='add' /> New</Button>
+        <Button icon labelPosition='left' size="tiny" color="green" onClick={() => this.props.history.push('/going-deeper-in-crud/add')}><Icon name='add' /> New</Button>
 
         <Header as='h2' dividing>Displaying all records
-          <Label as='span' color='olive' size='small'>semantic ui components</Label>
-          <Label as='span' color='olive' size='small'>redux store connection</Label>
-          <Label as='span' color='olive' size='small'>redux actions</Label>
-          <Label as='span' color='olive' size='small'>life-cycle</Label>
-          <Label as='span' color='olive' size='small'>routing</Label>
+          <Label as='span' color='' size='small'>semantic ui components</Label>
+          <Label as='span' color='' size='small'>redux store connection</Label>
+          <Label as='span' color='' size='small'>redux actions</Label>
+          <Label as='span' color='' size='small'>life-cycle</Label>
+          <Label as='span' color='' size='small'>routing</Label>
         </Header>
 
 				{/* Grid */}
-				<Table celled striped>
+				<Table compact celled striped color='' key=''>
 			    <Table.Header>
 			      <Table.Row>
-							<Table.HeaderCell>#</Table.HeaderCell>
-							<Table.HeaderCell>Enabled</Table.HeaderCell>
-              <Table.HeaderCell>Band Title <Label as='span' size='medium' color=''>Click the link to update band information</Label></Table.HeaderCell>
-              <Table.HeaderCell>Nationality</Table.HeaderCell>
-              <Table.HeaderCell>Rating</Table.HeaderCell>
-              <Table.HeaderCell>Created in</Table.HeaderCell>
+              <Table.HeaderCell></Table.HeaderCell>
+							<Table.HeaderCell textAlign='center'>Cover</Table.HeaderCell>
+              <Table.HeaderCell>Band Title <Label as='span' size='medium' color=''>Click the any item in this column to update it's information</Label></Table.HeaderCell>
+              <Table.HeaderCell textAlign='center'>Nationality</Table.HeaderCell>
+              <Table.HeaderCell textAlign='center'>Rating</Table.HeaderCell>
+              <Table.HeaderCell textAlign='center'>Created in</Table.HeaderCell>
 			      </Table.Row>
 			    </Table.Header>
 
@@ -68,10 +68,10 @@ class BandsList extends React.Component {
             {bands.length > 0 &&
               bands.map((item, i) => {
                 console.log(item.status, typeof item.status)
-    			      return (<Table.Row key={i}>
-    							<Table.Cell collapsing><img src={item.image} width={'60px'} /></Table.Cell>
-    							<Table.Cell collapsing><Radio toggle name={'status_'+i} checked={item.status} /></Table.Cell>
-                  <Table.Cell><a href={`/going-deeper-in-crud/edit/${item._id}`}>{item.title}</a></Table.Cell>{/*<Label ribbon>{item.status}</Label>*/}
+    			      return (<Table.Row key={i} positive={item.status}>{/*disabled={!item.status}*/}
+                  <Table.Cell collapsing>{item.status && <Icon color='green' name='checkmark' />}</Table.Cell> {/*<Radio slider name={'status_'+i} checked={item.status} disabled />*/}
+    							<Table.Cell textAlign='center' collapsing><img src={item.image} width={'30px'} alt="Key {i}" /></Table.Cell>
+                  <Table.Cell selectable><a href={`/going-deeper-in-crud/edit/${item._id}`}>{item.title}</a></Table.Cell>{/*<Label ribbon>{item.status}</Label>*/}
                   <Table.Cell collapsing>{item.nationality}</Table.Cell>
                   <Table.Cell collapsing><Rating maxRating={5} defaultRating={item.rate} icon='star' size='small' disabled /></Table.Cell>
                   <Table.Cell collapsing>{new Date(item.creationDate).toLocaleDateString('pt-br')}</Table.Cell>
@@ -79,6 +79,16 @@ class BandsList extends React.Component {
               })
             }
 			    </Table.Body>
+
+          <Table.Footer>
+            <Table.Row>
+              <Table.HeaderCell colSpan='6' textAlign="right">
+                <Label color="grey">Disabled <Label.Detail>{bands.filter(x => x.status === false).length}</Label.Detail></Label>
+                <Label color="blue">Enabled <Label.Detail>{bands.filter(x => x.status).length}</Label.Detail></Label>
+                <Label color="green">Total Records <Label.Detail>{bands.length}</Label.Detail></Label>
+              </Table.HeaderCell>
+            </Table.Row>
+          </Table.Footer>
 
 			    {/*<Table.Footer>
 			      <Table.Row>

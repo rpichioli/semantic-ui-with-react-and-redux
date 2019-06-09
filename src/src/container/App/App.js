@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom'; // Wraps component with route properties and more..
-import { Segment, Menu, Dropdown, Icon, Button, Container, Popup } from 'semantic-ui-react';
+import { Menu, Dropdown, Icon, Button, Container, Popup } from 'semantic-ui-react'; //Segment
 
 import logo from './logo.svg';
 import './App.css';
@@ -55,7 +55,7 @@ class App extends React.Component {
               <Dropdown.Menu>
                 <Dropdown.Item name="about" onClick={this.handleItemClick}><Icon name="info circle" /> About</Dropdown.Item>
                 <Dropdown.Item name="reference-guide" onClick={this.handleItemClick}><Icon name="graduation cap" /> Reference guide</Dropdown.Item>
-                <Dropdown.Item name="release-notes" onClick={this.handleItemClick}><Icon name="map signs" /> Release notes</Dropdown.Item>
+                {/*<Dropdown.Item name="release-notes" onClick={this.handleItemClick}><Icon name="map signs" /> Release notes</Dropdown.Item>*/}
               </Dropdown.Menu>
             </Dropdown>
 
