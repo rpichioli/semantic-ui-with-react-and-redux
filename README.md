@@ -1,4 +1,3 @@
->In development stage
 # semantic-ui-with-react-and-redux
 SPA (Single-Page Application) composed by React + Redux + Semantic UI (using official React components).
 
